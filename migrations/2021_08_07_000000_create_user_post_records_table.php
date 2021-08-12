@@ -12,4 +12,5 @@ return Migration::createTable("user_post_records", function (Blueprint $table) {
     $table->integer('likes', false, true);
     $table->integer('post_id', false, true);
     $table->string('type', 50);
+    $table->boolean('best_answer');
 });
