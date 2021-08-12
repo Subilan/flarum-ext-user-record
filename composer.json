@@ -1,14 +1,15 @@
 {
-	"name": "sotapmc/flarum-post-records",
+	"name": "subilan/flarum-post-records",
 	"description": "Record the post of your users with useful information.",
 	"type": "flarum-extension",
 	"require": {
 		"flarum/core": "^1.0.0",
 		"erusev/parsedown": "^1.7",
-		"flarum/likes": "^1.0"
+		"flarum/likes": "^1.0",
+		"fof/best-answer": "*"
 	},
 	"autoload": {
-        "psr-4": {"SotapMc\\PostRecords\\": "src/"}
+        "psr-4": {"Subilan\\PostRecords\\": "src/"}
     },
 	"extra": {
 		"flarum-extension": {
@@ -19,5 +20,6 @@
 				"color": "#fff"
 			}
 		}
-	}
+	},
+	"version": "0.1.0"
 }
