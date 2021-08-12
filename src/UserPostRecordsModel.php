@@ -11,14 +11,18 @@ class UserPostRecords extends AbstractModel
 {
     protected $table = 'user_post_records';
 
-    public function createRecord(string $username, Post $post)
+    public function createRecord(string $username, $post, string $type)
     {
-        $this->username = $username;
-        $this->chwords = self::getChWords($post->content);
-        $this->enwords = self::getEnWords($post->content);
-        $this->post_id = $post->id;
-        $this->type = $post->type;
-        $this->save();
+        $tg = $this->check($post->id);
+        if ($tg == null) {
+            $post = $type == 'comment' ?  $post : $post->firstPost;
+            $this->username = $username;
+            $this->chwords = self::getChWords($post->content);
+            $this->enwords = self::getEnWords($post->content);
+            $this->post_id = $post->id;
+            $this->type = $type;
+            $this->save();
+        }
     }
 
     public function updateRecord(Post $post)

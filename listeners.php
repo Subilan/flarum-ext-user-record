@@ -9,6 +9,7 @@ use Flarum\Post\Event\Posted;
 use Flarum\Post\Event\Hidden;
 use Flarum\Post\Event\Restored;
 use Flarum\Post\Event\Saving;
+use Flarum\Discussion\Event\Started;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SotapMc\PostRecords\UserPostRecords;
 
@@ -28,6 +29,7 @@ class PostEventListener
         $events->listen(Deleted::class, [$this, 'deleted']);
         $events->listen(Hidden::class, [$this, 'deleted']);
         $events->listen(Posted::class, [$this, 'posted']);
+        $events->listen(Started::class, [$this, 'discussionStarted']);
         $events->listen(Restored::class, [$this, 'posted']);
         $events->listen(Saving::class, [$this, 'saved']);
         $events->listen(PostWasLiked::class, [$this, 'liked']);
@@ -55,6 +57,10 @@ class PostEventListener
 
     public function posted($ev)
     {
-        $this->r->createRecord($ev->actor->username, $ev->post);
+        $this->r->createRecord($ev->actor->username, $ev->post, 'comment');
+    }
+
+    public function discussionStarted(Started $ev) {
+        $this->r->createRecord($ev->actor->username, $ev->discussion, 'discussion');
     }
 }
