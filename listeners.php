@@ -11,7 +11,7 @@ use Flarum\Post\Event\Restored;
 use Flarum\Post\Event\Saving;
 use Flarum\Discussion\Event\Started;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use SotapMc\PostRecords\UserPostRecords;
+use Subilan\PostRecords\UserPostRecords;
 
 class PostEventListener
 {
