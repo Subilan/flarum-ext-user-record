@@ -1,6 +1,6 @@
 <?php
 
-namespace SotapMc\PostRecords;
+namespace Subilan\PostRecords;
 
 use Flarum\Database\AbstractModel;
 use Flarum\Post\Post;
@@ -21,6 +21,7 @@ class UserPostRecords extends AbstractModel
             $this->enwords = self::getEnWords($post->content);
             $this->post_id = $post->id;
             $this->type = $type;
+            $this->best_answer = false;
             $this->save();
         }
     }
@@ -33,6 +34,11 @@ class UserPostRecords extends AbstractModel
             "enwords" => self::getEnWords($post->content),
             "type" => $post->type
         ]);
+    }
+
+    public function setBestAnswer(int $id, bool $best) {
+        $tg = $this->check($id);
+        if ($tg != null) self::query()->where("post_id", $id)->update(["best_answer" => $best]);
     }
 
     public function increaseLike(int $id, int $increasement = 1)
